@@ -1,0 +1,10 @@
+MIDlet-Jar-Size: 7251
+
+MIDlet-Jar-URL: GPIODemo.jar
+MIDlet-Permission-2: jdk.dio.gpio.GPIOPinPermission "*:*" "open"
+MicroEdition-Configuration: CLDC-1.8
+MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"
+MIDlet-Version: 1.0
+MIDlet-Vendor: Oracle
+MIDlet-Name: GPIODemo
+MicroEdition-Profile: MEEP-8.0

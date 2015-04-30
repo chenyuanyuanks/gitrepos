@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mtjMetadata jad="GPIODemo.jad" version="2.0.0.201411062058">
+   <device group="Oracle Java(TM) Platform Micro Edition SDK 8.1" name="EmbeddedDevice1"/>
+   <signing projectSpecific="false" signProject="false">
+      <alias/>
+   </signing>
+   <configurations>
+      <configuration active="true" name="EmbeddedDevice1">
+         <device group="Oracle Java(TM) Platform Micro Edition SDK 8.1" name="EmbeddedDevice1"/>
+         <symbolSet name="EmbeddedDevice1">
+            <symbol name="apis.supported" value="JSR172-1.0,JSR179-1.0,JSR280-1.0,JSR75-1.0,SATSA-1.0,WMA-1.1"/>
+            <symbol name="screen.bitDepth" value="16"/>
+            <symbol name="version.configuration" value="CLDC-1.1"/>
+            <symbol name="SATSA" value="1.0"/>
+            <symbol name="MEEP" value="8.0"/>
+            <symbol name="version.profile" value="MEEP-8.0"/>
+            <symbol name="screen.isTouch" value="true"/>
+            <symbol name="WMA" value="1.1"/>
+            <symbol name="descriptor" value="Java ME emulator"/>
+            <symbol name="screen.height" value="527"/>
+            <symbol name="DEVICE_ACCESS" value="1.0"/>
+            <symbol name="JSR179" value="1.0"/>
+            <symbol name="screen.width" value="980"/>
+            <symbol name="CLDC" value="1.8"/>
+            <symbol name="screen.isColor" value="true"/>
+            <symbol name="JSR172" value="1.0"/>
+            <symbol name="JSR75" value="1.0"/>
+            <symbol name="JSR280" value="1.0"/>
+         </symbolSet>
+      </configuration>
+   </configurations>
+   <liblets/>
+</mtjMetadata>

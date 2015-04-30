@@ -1,0 +1,8 @@
+code_validation_use_project=true
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.assertion=IGNORE
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.autoBoxing=IGNORE
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.finalizer=IGNORE
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.switch.by.enum=IGNORE
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.switch.by.string=IGNORE
+com.oracle.jme.toolkit.eclipse.core.CLDCCodeValidator.vararg=IGNORE
+eclipse.preferences.version=1
