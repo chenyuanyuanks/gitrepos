@@ -1,4 +1,4 @@
-MIDlet-Jar-Size: 115645
+MIDlet-Jar-Size: 17158
 MIDlet-Jar-URL: GPIODemo.jar
 MIDlet-Name: GPIODemo
 MIDlet-Permission-1: jdk.dio.DeviceMgmtPermission "*:*" "open"

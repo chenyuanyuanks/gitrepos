@@ -34,7 +34,7 @@ import java.io.OutputStream;
 import org.eclipse.paho.client.mqttv3.internal.ClientComms;
 import org.eclipse.paho.client.mqttv3.internal.ConnectActionListener;
 import org.eclipse.paho.client.mqttv3.internal.ExceptionHelper;
-import org.eclipse.paho.client.mqttv3.internal.LocalNetworkModule;
+//import org.eclipse.paho.client.mqttv3.internal.LocalNetworkModule;
 import org.eclipse.paho.client.mqttv3.internal.NetworkModule;
 //import org.eclipse.paho.client.mqttv3.internal.SSLNetworkModule;
 import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule;
@@ -411,9 +411,9 @@ public class MqttAsyncClient implements IMqttAsyncClient { // DestinationProvide
 				}
 			}
 			break;
-*/		case MqttConnectOptions.URI_TYPE_LOCAL :
+		case MqttConnectOptions.URI_TYPE_LOCAL :
 			netModule = new LocalNetworkModule(address.substring(8));
-			break;
+			break;*/
 		default:
 			// This shouldn't happen, as long as validateURI() has been called.
 			netModule = null;

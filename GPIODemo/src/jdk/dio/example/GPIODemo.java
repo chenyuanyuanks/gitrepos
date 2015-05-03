@@ -5,9 +5,23 @@
 package jdk.dio.example;
 
 import java.io.IOException;
+//////////////////////////////////////
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import java.nio.file.FileSystems;
+import java.nio.file.DirectoryStream;
+import java.nio.file.DirectoryIteratorException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 
-//import javax.microedition.midlet.MIDlet;
+import javax.microedition.midlet.MIDlet;
 
 import jdk.dio.DeviceManager;
 import jdk.dio.gpio.GPIOPin;
@@ -16,23 +30,23 @@ import jdk.dio.gpio.GPIOPort;
 import jdk.dio.gpio.PinEvent;
 import jdk.dio.gpio.PinListener;
 
-
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttCallbackImpl;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttCallbackImpl;
-import javax.microedition.midlet.MIDlet;
+import javax.microedition.io.file.FileConnection;
+import javax.microedition.io.Connector;
 /**
  * Demostrates basic GPIO functionality.
  * 
  * <p><b>Target Platforms</b>: emulator.</p>
  */ 
-//public class GPIODemo  extends MIDlet implements MqttCallback{
 public class GPIODemo extends MIDlet{
+
     static final String LED5_PIN_NAME = "LED 5";
     
     static final String LED6_PIN_NAME = "LED 6";
@@ -59,7 +73,7 @@ public class GPIODemo extends MIDlet{
 	private boolean SSL = false;
     
     public void startApp() {
-        if(bFirst == false) {
+        /*if(bFirst == false) {
 
             System.out.println("Starting GPIO Demo");
             try {
@@ -90,9 +104,91 @@ public class GPIODemo extends MIDlet{
             bFirst = true;
         } else {
             System.out.println("GPIO Demo is already started...");
-        }
+        }*/
+    	TestForFileConnectioner();
+    	//TestForFilter();
+    	//put();
+    	    	
+    }
+    /*
+     * 
+     */
+    public void TestForFileConnectioner(){
+    	try {
+    	     FileConnection fconn = (FileConnection)Connector.open("file:///Directory/1.txt");
+    	     // If no exception is thrown, then the URI is valid, but the file may or may not exist.
+    	     if (!fconn.exists())
+    	         fconn.create();  // create the file if it doesn't exist
+
+    	     fconn.close();
+    	 }
+    	 catch (IOException ioe) {
+    	 }
+    	
     }
     
+    
+    /*
+     * Test File Filter Function
+     * I need filter files meeting  requirements 
+     */
+    public void TestForFilter(){
+   	 DirectoryStream.Filter<Path> filter = new DirectoryStream.Filter<Path>() {
+         public boolean accept(Path file) throws IOException {
+             //return (Files.size(file) > 8192L);
+        	 return file.toString().endsWith("s");  
+         }
+     };
+     
+     String path_string = "test/path1/path2";
+     Path beginning =Paths.get(path_string);
+     try(DirectoryStream<Path> stream = Files.newDirectoryStream(beginning)) {
+    	  for (Path file: stream) {
+    	    System.out.println(file.getFileName());
+    	  }
+    	} catch(IOException | DirectoryIteratorException x) {
+    	  // IOException can never be thrown by theiteration.
+    	  // In this snippet, it can only be thrownby newDirectoryStream.
+    	  System.err.println(x);
+    	}
+}
+    /*
+     *  Open local file named TestFile.msg and write something to the file
+     *  The backupPath associating "TestFile.msg.bup",is a backup file,if writing is done succefully,it will be deleted 
+     */
+    
+    public void put(){
+    	//String clientDir ="C:\\Users\\Administrator\\Desktop\\test--\\test4";
+    	//String MESSAGE_FILE_EXTENSION = ".msg";
+    	//String MESSAGE_BACKUP_FILE_EXTENSION = ".bup";
+    	//String key = "TestFile";
+    	Path path = FileSystems.getDefault().getPath("C:\\Users\\Administrator\\Desktop\\test--\\test4", "TestFile.msg");
+    	Path backupPath = FileSystems.getDefault().getPath("C:\\Users\\Administrator\\Desktop\\test--\\test4", "TestFile.msg.bup");
+		try{
+			if (Files.exists(path)){
+			// Backup the existing file so the overwrite can be rolled-back 
+			Files.copy(path,backupPath);
+			}
+		}catch (IOException ex) {
+			System.out.println("during copy IOException");
+		} 		
+		try {			
+			byte b[]={'h','e','l','l','o','h','e','l','l','o','h','e','l','l','o'};
+			int off = 0;
+			int len = 5;
+			OutputStream os = Files.newOutputStream(path);
+			os.write(b,off,len);
+			os.flush();
+			os.close();			
+			if (Files.exists(backupPath)) {
+				Files.delete(backupPath);
+			}
+		}
+		catch (IOException ex) {
+			System.out.println("IOException");
+		} 
+    }
+            
     public void pauseApp() {
     }
     
@@ -180,6 +276,7 @@ public class GPIODemo extends MIDlet{
 		}
 
 		pubClinet = new MqttClient(url, clientId);
+		//pubClinet.setCallback(this);
 		MqttCallbackImpl mcb = new MqttCallbackImpl();
 		pubClinet.setCallback(mcb);
 		pubClinet.connect();
@@ -221,8 +318,10 @@ public class GPIODemo extends MIDlet{
 			client = new MqttClient(url, clientId);
 			
 			// Set this wrapper as the callback handler
-			MqttCallbackImpl mcb = new MqttCallbackImpl();
-			client.setCallback(mcb);
+			//client.setCallback(this);
+			MqttCallbackImpl mcb1 = new MqttCallbackImpl();
+			client.setCallback(mcb1);
+			
 			
 			// Construct the connection options object that contains connection parameters 
     		// such as cleansession and LWAT
